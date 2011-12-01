@@ -24,7 +24,6 @@ void dispBoard(int (*Board)[3]){
 		cout<<endl;
 		if(k!=2)
 			cout<<"------"<<endl;
-
 	}
 }
 bool WinMa(int (*Board)[3], Player * P1, Player * P2){
@@ -53,8 +52,7 @@ bool WinMa(int (*Board)[3], Player * P1, Player * P2){
 			if(x==y)
 				Diagtot[0] += Board[x][y];
 			if((x==0 && y ==2) || (x==1&&y==1)||(x==2&&y==0))
-				Diagtot[1] += Board[x][y];
-			
+				Diagtot[1] += Board[x][y];			
 		}
 	}
 	for(int i = 0; i < 3; i++){
@@ -76,15 +74,14 @@ bool WinMa(int (*Board)[3], Player * P1, Player * P2){
 			O->wins++;
 			return true;
 		}
-	}	
-		for(int x = 0; x<3;x++){
-			for(int y = 0; y <3; y ++){
-				if(Board[x][y]==0)
-					return false;
-			}
+	}
+	for(int x = 0; x<3;x++){
+		for(int y = 0; y <3; y ++){
+			if(Board[x][y]==0)
+				return false;
 		}
+	}
 	return true;
-
 }
 int main(){
 	bool play = true;
