@@ -51,7 +51,7 @@ bool WinMa(int (*Board)[3], Player * P1, Player * P2){
 			Coltot[x] += Board[x][y];
 			if(x==y)
 				Diagtot[0] += Board[x][y];
-			if((x==0 && y ==2) || (x==1&&y==1)||(x==2&&y==0))
+			if(x+y==2)
 				Diagtot[1] += Board[x][y];			
 		}
 	}

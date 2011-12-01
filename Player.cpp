@@ -53,7 +53,7 @@ void Player::aiLogic(int (*Board)[3]){
 			Coltot[x] += Board[x][y];
 			if(x==y)
 				Diagtot[0] += Board[x][y];
-			if((x==0 && y ==2) || (x==1&&y==1)||(x==2&&y==0))
+			if(x+y==2)
 				Diagtot[1] += Board[x][y];
 			
 		}
@@ -89,18 +89,11 @@ void Player::aiLogic(int (*Board)[3]){
 		}
 	}
 	if(abs(Diagtot[1])==2){
-		if(Board[0][2]==0){
-			Board[0][2]= this->pieceVal;
-			return;
-		}
-		if(Board[1][1]==0){
-			Board[1][1]= this->pieceVal;
-			return;
-		}
-		if(Board[2][0]==0){
-			Board[2][0]= this->pieceVal;
-			return;
-		}		
+		for(int x = 0; x < 3; x++)
+			if(Board[x][2-x]==0){
+				Board[x][2-x]=this->pieceVal;
+				return;
+			}
 	}
 	while(cont){
 		x = rand()%3;
