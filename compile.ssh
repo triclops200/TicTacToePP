@@ -1,1 +1,1 @@
-g++ *.cpp -O2 -otictactoe
+g++ *.cpp -O2 -otictactoe -lncurses

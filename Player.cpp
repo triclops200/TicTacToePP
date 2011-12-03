@@ -1,15 +1,19 @@
 #include "Player.hpp"
 using namespace std;
 int Player::doMove(int (*Board)[3]){
-	cout<<this->name<<"'s Turn:"<<endl;
+	char stmp[80];
+	printw(this->name.c_str());
+	printw("'s Turn:\n");
 	if (this->human){
 		int x,y;
 		bool cont = true;
 		while(cont){
-			cout<<"X: ";
-			cin>>x;
-			cout<<"Y: ";
-			cin>>y;
+			printw("X: ");
+			getstr(stmp);
+			x = atoi(stmp);
+			printw("Y: ");
+			getstr(stmp);
+			y = atoi(stmp);
 			if(x<3&&x>=0&&y<3&&y>=0)
 			{
 				if (Board[x][y]==0){
@@ -17,11 +21,11 @@ int Player::doMove(int (*Board)[3]){
 					cont = false;
 				}
 				else{
-					cout<<"Try again, this time, choose one that is not taken"<<endl;
+					printw("Try again, this time, choose one that is not taken\n");
 				}
 			}
 			else{
-				cout<<"X and Y must be < 3 and >= 0"<<endl;
+				printw("X and Y must be < 3 and >= 0\n");
 			}
 		}		
 	}

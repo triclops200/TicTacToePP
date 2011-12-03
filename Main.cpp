@@ -1,5 +1,7 @@
+#include <ncurses.h>
 #include <iostream>
 #include <string>
+#include <stdlib.h>
 #include "Player.hpp"
 using namespace std;
 void clearBoard(int (*Board)[3]){
@@ -8,22 +10,25 @@ void clearBoard(int (*Board)[3]){
 			Board[j][k]=0;
 }
 void dispBoard(int (*Board)[3]){
-	cout<<"============================="<<endl;
+	clear();
+	refresh();
+	move(0,0);
+	int xpos=0, ypos=0;
 	for(int k = 0; k < 3; k++){
 		for(int j = 0; j < 3; j++){
 			if(Board[j][k]==1)
-				cout<<"X";
+				printw("X");
 			if(Board[j][k]==-1)
-				cout<<"O";
+				printw("O");
 			if(Board[j][k]==0)
-				cout<<" ";
+				printw(" ");
 			if(j!=2){
-				cout<<"|";
+				printw("|");
 			}			
 		}
-		cout<<endl;
+		printw("\n");
 		if(k!=2)
-			cout<<"------"<<endl;
+			printw("------\n");
 	}
 }
 bool WinMa(int (*Board)[3], Player * P1, Player * P2){
@@ -84,24 +89,34 @@ bool WinMa(int (*Board)[3], Player * P1, Player * P2){
 	return true;
 }
 int main(){
+	initscr();
 	bool play = true;
 	int Board[3][3];
 	bool ended = false;
 	Player * P1 = new Player;
 	Player * P2 = new Player;
-	string stmp;
+	char stmp[80];
 	int itmp;
-	cout<<"Player 1's name: ";
-	cin >>stmp;
-	cout<<"Is "<<stmp<<" a human? (1 for yes, 0 for no): ";
-	cin >> itmp;
-	P1->init(itmp,1, stmp);
-	stmp="";
-	cout<<"Player 2's name: ";
-	cin >>stmp;
-	cout<<"Is "<<stmp<<" a human? (1 for yes, 0 for no): ";
-	cin >> itmp;
-	P2->init(itmp,-1, stmp);
+	string name;
+	printw("Player 1's name: ");
+	getstr(stmp);
+	name =stmp;
+	printw("Is ");
+	printw(stmp);
+	printw(" a human? (1 for yes, 0 for no): ");
+	getstr(stmp);
+	itmp=atoi(stmp);
+	P1->init(itmp,1, name);
+	refresh();
+	printw("Player 2's name: ");
+	getstr(stmp);
+	name =stmp;
+	printw("Is ");
+	printw(stmp);
+	printw(" a human? (1 for yes, 0 for no): ");
+	getstr(stmp);
+	itmp=atoi(stmp);
+	P2->init(itmp,-1, name);
 	clearBoard(Board);
 	while(play){
 		dispBoard(Board);
@@ -117,13 +132,17 @@ int main(){
 				dispBoard(Board);
 			}		
 		}
-		cout<<"----Scores----"<<endl;
-		cout<<P1->name<<": "<<P1->wins<<endl;
-		cout<<P2->name<<": "<<P2->wins<<endl;
+		printw("----Scores----\n");
+		printw(P1->name.c_str());
+		printw(": ");
+		printw("%d\n",P1->wins);
+		printw(P2->name.c_str());
+		printw(": %d\n",P2->wins);
 		clearBoard(Board);
 		int t;
-		cout<<"1 for play again, 2 for quit: ";
-		cin >>t;
+		printw("1 for play again, 2 for quit: ");
+		getstr(stmp);
+		t = atoi(stmp);
 		if(t==2)
 			play = false;
 		else{
@@ -135,4 +154,5 @@ int main(){
 	}
 	delete P1;
 	delete P2;
+	endwin();
 }

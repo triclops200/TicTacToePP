@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include <ncurses.h>
 using namespace std;
 class Player{
 	public:
