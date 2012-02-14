@@ -61,21 +61,11 @@ bool WinMa(int (*Board)[3], Player * P1, Player * P2){
 		}
 	}
 	for(int i = 0; i < 3; i++){
-		if(Coltot[i]== 3 || Rowtot[i] == 3){
+		if(Coltot[i]== 3 || Rowtot[i] == 3 || Diagtot[i]== 3){
 			X->wins++;
 			return true;
 		}
-		if(Coltot[i]== -3 || Rowtot[i] == -3){
-			O->wins++;
-			return true;
-		}
-	}
-	for(int i = 0; i < 2; i++){
-		if(Diagtot[i]== 3){
-			X->wins++;
-			return true;
-		}
-		if(Diagtot[i]== -3){
+		if(Coltot[i]== -3 || Rowtot[i] == -3 || Diagtot[i]== -3){
 			O->wins++;
 			return true;
 		}
